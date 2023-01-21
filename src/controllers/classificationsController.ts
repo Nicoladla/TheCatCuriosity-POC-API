@@ -18,6 +18,9 @@ export async function postClassifications(
   req: Request,
   res: Response
 ): Promise<void> {
+    const classification = req.body
+
+
   try {
   } catch (err) {
     res.status(500).send({ message: err.message });
