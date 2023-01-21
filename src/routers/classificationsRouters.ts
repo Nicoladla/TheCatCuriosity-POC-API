@@ -1,9 +1,15 @@
 import { Router } from "express";
 
-const router= Router();
+import {
+  getClassifications,
+  postClassifications,
+  deleteClassifications,
+} from "../controllers/classificationsController.js";
 
-router.get("/classifications", )
-router.post("/classifications", )
-router.delete("/classifications:id", )
+const router = Router();
+
+router.get("/classifications", getClassifications);
+router.post("/classifications", postClassifications);
+router.delete("/classifications:id", deleteClassifications);
 
 export default router;
