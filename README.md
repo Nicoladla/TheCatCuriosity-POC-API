@@ -66,7 +66,7 @@ O usuário também é capaz de listar todas as classificações possíveis para 
 ]
 ```
 
-2 - Para filtrar e listar as curiosidades por uma classificação existente é necessário fazer uma requisição **`GET`** para a rota `/curiosities/:classifications`. Assim, você recebera os dados no formato a seguir:
+2 - Para filtrar e listar as curiosidades por uma classificação existente é necessário fazer uma requisição **`GET`** para a rota `/curiosities/:classificationId`. Assim, você recebera os dados no formato a seguir:
 
 ```
 [
