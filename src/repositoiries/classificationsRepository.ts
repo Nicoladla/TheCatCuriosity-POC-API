@@ -1,4 +1,3 @@
-import { QueryResult } from "pg";
 import connection from "../database/db.js";
 
 import {
@@ -10,9 +9,16 @@ export function fetchClassifications() {
   return connection.query<Classification>(`SELECT * FROM classifications`);
 }
 
-export function insertClassifications(Classification: string) {
+export function fetchIdClassifications(classifications: string) {
+  return connection.query<Classification>(
+    `SELECT * FROM classifications WHERE name=$1`,
+    [classifications]
+  );
+}
+
+export function insertClassification(classification: string) {
   return connection.query<ClassificationInsert>(
     `INSERT INTO classifications (name) VALUES ($1)`,
-    [Classification]
+    [classification]
   );
 }

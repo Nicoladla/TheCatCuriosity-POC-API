@@ -2,7 +2,7 @@
 
 Essa é uma aplicação relacionada a um site de curiosidades, onde qualquer usuário pode fazer uma publicação sobre uma curiosidade, assim como, visualizar todos as curiosidades postadas... Também é possível que o usuário delete uma publicação ou edite a mesma.
 
-O usuário também é capaz de listar todas as classificações possíveis para uma curiosidades, deletar e incerir uma nova classificação.
+O usuário também é capaz de listar todas as classificações possíveis para uma curiosidades e incerir uma nova classificação.
 
 ---
 
@@ -32,8 +32,6 @@ O usuário também é capaz de listar todas as classificações possíveis para 
         name: "Cultura"
     }
 ```
-
-3 - Para deletar alguma classificação específica você precisa fazer uma requisição **`DELETE`** para a rota `/classifications/:id`.
 
 ---
 

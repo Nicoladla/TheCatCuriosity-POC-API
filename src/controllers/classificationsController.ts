@@ -1,5 +1,12 @@
 import { Request, Response } from "express";
-import { fetchClassifications } from "../repositoiries/classificationsRepository.js";
+import {
+  fetchClassifications,
+  fetchIdClassifications,
+  insertClassification,
+} from "../repositoiries/classificationsRepository.js";
+import classificationSchema from "../schema/classificationsSchema.js";
+
+import { ClassificationInsert } from "../protocols/ClassificationProtocol.js";
 
 export async function getClassifications(
   req: Request,
@@ -14,24 +21,25 @@ export async function getClassifications(
   }
 }
 
-export async function postClassifications(
-  req: Request,
-  res: Response
-): Promise<void> {
-    const classification = req.body
-
+export async function postClassifications(req: Request, res: Response) {
+  const classification = req.body as ClassificationInsert;
 
   try {
-  } catch (err) {
-    res.status(500).send({ message: err.message });
-  }
-}
+    const { error } = classificationSchema.validate(classification);
+    if (error) {
+      return res.status(422).send({ message: error.details[0].message });
+    }
 
-export async function deleteClassifications(
-  req: Request,
-  res: Response
-): Promise<void> {
-  try {
+    const classificationExist = await fetchIdClassifications(
+      classification.name
+    );
+    if (classificationExist.rowCount === 1) {
+      return res.status(409).send({ message: "Existing classification" });
+    }
+
+    await insertClassification(classification.name);
+
+    res.sendStatus(201);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
