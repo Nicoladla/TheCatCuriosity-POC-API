@@ -14,14 +14,14 @@ export function fetchCuriosities() {
 
 export function fetchCuriosityById(curiosityId: number) {
   return connection.query<Curiosities>(
-    `SELECT * FROM curiosities WHERE "classificationId"=$1 ORDER BY "createdAt" DESC`,
+    `SELECT * FROM curiosities WHERE "id"=$1`,
     [curiosityId]
   );
 }
 
 export function fetchCuriositiesByClassification(classificationId: number) {
   return connection.query<Curiosities>(
-    `SELECT * FROM curiosities WHERE "classificationId"=$1`,
+    `SELECT * FROM curiosities WHERE "classificationsId"=$1  ORDER BY "createdAt" DESC`,
     [classificationId]
   );
 }
@@ -29,7 +29,7 @@ export function fetchCuriositiesByClassification(classificationId: number) {
 export function insertCuriosity(curiosity: CuriositiesInsert) {
   return connection.query<CuriositiesInsert>(
     `INSERT INTO curiosities 
-        (author, title, description, classificationId) 
+        (author, title, description, "classificationsId") 
     VALUES 
         ($1, $2, $3, $4)`,
     [

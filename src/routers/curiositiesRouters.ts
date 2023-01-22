@@ -8,14 +8,14 @@ import {
   deleteCuriosity,
 } from "../controllers/curiositiesController.js";
 
-import { validPostCuriosity } from "../middleware/curiositiesMiddleware.js";
+import { validateIfCuriosityExists, validPostCuriosity, validUpdateCuriosity } from "../middleware/curiositiesMiddleware.js";
 
 const router = Router();
 
 router.get("/curiosities", getCuriosities);
 router.get("/curiosities/:classificationId", getCuriositiesByClassification);
 router.post("/curiosities",validPostCuriosity, postCuriosity);
-router.patch("/curiosities/:id", updateCuriosity);
-router.delete("/curiosities/:id", deleteCuriosity);
+router.patch("/curiosities/:id", validateIfCuriosityExists, validUpdateCuriosity, updateCuriosity);
+router.delete("/curiosities/:id", validateIfCuriosityExists, deleteCuriosity);
 
 export default router;
