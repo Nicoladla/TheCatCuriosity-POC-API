@@ -7,11 +7,11 @@ import {
 } from "../protocols/curiositiesProtocol";
 
 export function fetchCuriosities() {
-  return connection.query<Curiosities[]>(`SELECT * FROM curiosities`);
+  return connection.query<Curiosities>(`SELECT * FROM curiosities`);
 }
 
 export function fetchCuriosityById(curiosityId: number) {
-  return connection.query<Curiosities[]>(
+  return connection.query<Curiosities>(
     `SELECT * FROM curiosities WHERE "classificationId"=$1`,
     [curiosityId]
   );

@@ -11,6 +11,9 @@ import {
 
 export async function getCuriosities(req: Request, res: Response) {
   try {
+    const { rows: listCuriosities } = await fetchCuriosities();
+
+    res.status(200).send(listCuriosities);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }

@@ -6,7 +6,7 @@ import {
 } from "../protocols/ClassificationProtocol.js";
 
 export function fetchClassifications() {
-  return connection.query<Classification[]>(`SELECT * FROM classifications`);
+  return connection.query<Classification>(`SELECT * FROM classifications`);
 }
 
 export function fetchIdClassification(classifications: string) {
