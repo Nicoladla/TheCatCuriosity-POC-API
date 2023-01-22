@@ -42,12 +42,12 @@ export function insertCuriosity(curiosity: CuriositiesInsert) {
 }
 
 export function updateACuriosity(
-  curiosity: CuriositiesUpdate,
+  editedCuriosity: CuriositiesUpdate,
   curiosityId: number
 ) {
   return connection.query<CuriositiesInsert>(
     `UPDATE curiosities SET title=$1 , description=$2 WHERE id= $3`,
-    [curiosity.title, curiosity.description, curiosityId]
+    [editedCuriosity.title, editedCuriosity.description, curiosityId]
   );
 }
 

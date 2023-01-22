@@ -1,10 +1,12 @@
 import { Request, Response } from "express";
 
-import { CuriositiesInsert } from "../protocols/curiositiesProtocol.js";
+import {
+  CuriositiesInsert,
+  CuriositiesUpdate,
+} from "../protocols/curiositiesProtocol.js";
 
 import {
   fetchCuriosities,
-  fetchCuriosityById,
   fetchCuriositiesByClassification,
   insertCuriosity,
   updateACuriosity,
@@ -40,7 +42,10 @@ export async function getCuriositiesByClassification(
   }
 }
 
-export async function postCuriosity(req: Request, res: Response) {
+export async function postCuriosity(
+  req: Request,
+  res: Response
+): Promise<void> {
   const curiosity = req.body as CuriositiesInsert;
 
   try {
@@ -52,15 +57,33 @@ export async function postCuriosity(req: Request, res: Response) {
   }
 }
 
-export async function updateCuriosity(req: Request, res: Response) {
+export async function updateCuriosity(
+  req: Request,
+  res: Response
+): Promise<void> {
+  const editedCuriosity = req.body as CuriositiesUpdate;
+  const curiosityId: number = Number(req.params.id);
+
   try {
+    await updateACuriosity(editedCuriosity, curiosityId);
+
+    res.sendStatus(200);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 }
 
-export async function deleteCuriosity(req: Request, res: Response) {
+export async function deleteCuriosity(
+  req: Request,
+  res: Response
+): Promise<void> {
+  const curiosityId: number = Number(req.params.id);
+
   try {
+    const teste = await deleteACuriosity(curiosityId);
+
+    console.log(teste);
+    res.sendStatus(200);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
