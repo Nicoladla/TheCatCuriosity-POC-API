@@ -23,7 +23,13 @@ export async function getCuriositiesByClassification(
   req: Request,
   res: Response
 ) {
+  const classificationId: number = Number(req.params.classificationId);
+
   try {
+    const { rows: listCuriositiesByClassification } =
+      await fetchCuriositiesByClassification(classificationId);
+
+    res.status(200).send(listCuriositiesByClassification);
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
