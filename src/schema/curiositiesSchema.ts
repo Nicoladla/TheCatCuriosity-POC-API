@@ -9,5 +9,5 @@ export const curiositySchema = joi.object({
 
 export const curiositiesUpdateSchema = joi.object({
   title: joi.string().min(4).required(),
-  description: joi.string().min(30).required(),
+  description: joi.string().min(15).required(),
 });

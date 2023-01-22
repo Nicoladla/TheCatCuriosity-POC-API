@@ -80,9 +80,8 @@ export async function deleteCuriosity(
   const curiosityId: number = Number(req.params.id);
 
   try {
-    const teste = await deleteACuriosity(curiosityId);
+    await deleteACuriosity(curiosityId);
 
-    console.log(teste);
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send({ message: err.message });

@@ -1,3 +1,4 @@
+import { ResultBuilder } from "pg";
 import connection from "../database/db.js";
 
 import {
@@ -52,5 +53,5 @@ export function updateACuriosity(
 }
 
 export function deleteACuriosity(curiosityId: number) {
-  return connection.query(`DELETE FROM curiosities WHERE id=$1`, [curiosityId]);
+  return connection.query<object>(`DELETE FROM curiosities WHERE id=$1`, [curiosityId]);
 }
