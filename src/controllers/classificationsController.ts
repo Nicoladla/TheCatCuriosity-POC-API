@@ -1,7 +1,7 @@
 import { Request, Response,  } from "express";
 import {
   fetchClassifications,
-  fetchIdClassification,
+  fetchClassificationByName,
   insertClassification,
 } from "../repositoiries/classificationsRepository.js";
 import classificationSchema from "../schema/classificationsSchema.js";
@@ -30,7 +30,7 @@ export async function postClassifications(req: Request, res: Response) {
       return res.status(422).send({ message: error.details[0].message });
     }
 
-    const classificationExist = await fetchIdClassification(
+    const classificationExist = await fetchClassificationByName(
       classification.name
     );
     if (classificationExist.rowCount === 1) {

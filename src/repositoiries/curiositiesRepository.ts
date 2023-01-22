@@ -7,12 +7,14 @@ import {
 } from "../protocols/curiositiesProtocol";
 
 export function fetchCuriosities() {
-  return connection.query<Curiosities>(`SELECT * FROM curiosities`);
+  return connection.query<Curiosities>(
+    `SELECT * FROM curiosities ORDER BY "createdAt" DESC`
+  );
 }
 
 export function fetchCuriosityById(curiosityId: number) {
   return connection.query<Curiosities>(
-    `SELECT * FROM curiosities WHERE "classificationId"=$1`,
+    `SELECT * FROM curiosities WHERE "classificationId"=$1 ORDER BY "createdAt" DESC`,
     [curiosityId]
   );
 }
@@ -39,7 +41,7 @@ export function insertCuriosity(curiosity: CuriositiesInsert) {
   );
 }
 
-export function updateCuriosity(
+export function updateACuriosity(
   curiosity: CuriositiesUpdate,
   curiosityId: number
 ) {
@@ -49,6 +51,6 @@ export function updateCuriosity(
   );
 }
 
-export function deleteCuriosity(curiosityId: number) {
+export function deleteACuriosity(curiosityId: number) {
   return connection.query(`DELETE FROM curiosities WHERE id=$1`, [curiosityId]);
 }

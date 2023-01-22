@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export const curiositiesSchema = joi.object({
+export const curiositySchema = joi.object({
   author: joi.string().min(3).required(),
   title: joi.string().min(4).required(),
   description: joi.string().min(30).required(),

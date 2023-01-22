@@ -9,10 +9,17 @@ export function fetchClassifications() {
   return connection.query<Classification>(`SELECT * FROM classifications`);
 }
 
-export function fetchIdClassification(classifications: string) {
+export function fetchClassificationByName(classification: string) {
   return connection.query<Classification>(
     `SELECT * FROM classifications WHERE name=$1`,
-    [classifications]
+    [classification]
+  );
+}
+
+export function fetchClassificationById(classificationId: number) {
+  return connection.query<Classification>(
+    `SELECT * FROM classifications WHERE id=$1`,
+    [classificationId]
   );
 }
 
