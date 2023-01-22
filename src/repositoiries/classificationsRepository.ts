@@ -6,10 +6,10 @@ import {
 } from "../protocols/ClassificationProtocol.js";
 
 export function fetchClassifications() {
-  return connection.query<Classification>(`SELECT * FROM classifications`);
+  return connection.query<Classification[]>(`SELECT * FROM classifications`);
 }
 
-export function fetchIdClassifications(classifications: string) {
+export function fetchIdClassification(classifications: string) {
   return connection.query<Classification>(
     `SELECT * FROM classifications WHERE name=$1`,
     [classifications]

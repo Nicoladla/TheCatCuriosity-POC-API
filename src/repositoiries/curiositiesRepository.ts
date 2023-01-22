@@ -6,18 +6,25 @@ import {
   CuriositiesUpdate,
 } from "../protocols/curiositiesProtocol";
 
-export function getCuriositie() {
-  return connection.query<Curiosities>(`SELECT * FROM curiosities`);
+export function fetchCuriosities() {
+  return connection.query<Curiosities[]>(`SELECT * FROM curiosities`);
 }
 
-export function getByIdCuriositie(classificationId: number) {
+export function fetchCuriosityById(curiosityId: number) {
+  return connection.query<Curiosities[]>(
+    `SELECT * FROM curiosities WHERE "classificationId"=$1`,
+    [curiosityId]
+  );
+}
+
+export function fetchCuriositiesByClassification(classificationId: number) {
   return connection.query<Curiosities>(
     `SELECT * FROM curiosities WHERE "classificationId"=$1`,
     [classificationId]
   );
 }
 
-export function insertCuriositie(curiosity: CuriositiesInsert) {
+export function insertCuriosity(curiosity: CuriositiesInsert) {
   return connection.query<CuriositiesInsert>(
     `INSERT INTO curiosities 
         (author, title, description, classificationId) 
@@ -32,7 +39,7 @@ export function insertCuriositie(curiosity: CuriositiesInsert) {
   );
 }
 
-export function updateCuriositie(
+export function updateCuriosity(
   curiosity: CuriositiesUpdate,
   curiosityId: number
 ) {
@@ -42,6 +49,6 @@ export function updateCuriositie(
   );
 }
 
-export function deleteCuriositie(curiosityId: number) {
+export function deleteCuriosity(curiosityId: number) {
   return connection.query(`DELETE FROM curiosities WHERE id=$1`, [curiosityId]);
 }
