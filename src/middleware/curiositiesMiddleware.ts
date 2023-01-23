@@ -17,7 +17,7 @@ export async function validPostCuriosity(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): Promise<void> {
   const curiosity = req.body as CuriositiesInsert;
 
   try {
@@ -26,14 +26,16 @@ export async function validPostCuriosity(
     });
     if (error) {
       const errors = error.details.map((detail) => detail.message);
-      return res.status(422).send({ message: errors });
+      res.status(422).send({ message: errors });
+      return;
     }
 
     const classificationExist = await fetchClassificationById(
       curiosity.classificationId
     );
     if (classificationExist.rowCount === 0) {
-      return res.status(400).send({ message: "Invalid classification" });
+      res.status(400).send({ message: "Invalid classification" });
+      return;
     }
 
     next();
@@ -46,7 +48,7 @@ export async function validUpdateCuriosity(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): Promise<void> {
   const editedCuriosity = req.body as CuriositiesUpdate;
 
   try {
@@ -55,7 +57,8 @@ export async function validUpdateCuriosity(
     });
     if (error) {
       const errors = error.details.map((detail) => detail.message);
-      return res.status(422).send({ message: errors });
+      res.status(422).send({ message: errors });
+      return;
     }
 
     next();
@@ -68,13 +71,14 @@ export async function validateIfCuriosityExists(
   req: Request,
   res: Response,
   next: NextFunction
-) {
+): Promise<void> {
   const curiosityId: number = Number(req.params.id);
 
   try {
     const curiosityExist = await fetchCuriosityById(curiosityId);
     if (curiosityExist.rowCount === 0) {
-      return res.status(400).send({ message: "Invalid curiosity" });
+      res.status(400).send({ message: "Invalid curiosity" });
+      return;
     }
 
     next();
